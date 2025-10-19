@@ -13,22 +13,22 @@ public class TaskService {
 
     private final TaskRepository taskRepository;
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         return taskRepository.findAll();
     }
 
-    public Task createTask(String title){
+    public Task createTask(String title) {
         Task task = new Task();
         task.setTitle(title);
 
         return taskRepository.save(task);
     }
 
-    public Task updateTitle(Long id, String title){
+    public Task updateTitle(Long id, String title) {
 
         Task task = taskRepository.findById(id).orElse(null);
 
-        if (task != null){
+        if (task != null) {
             task.setTitle(title);
             return taskRepository.save(task);
         }
@@ -36,10 +36,10 @@ public class TaskService {
         return null;
     }
 
-    public Task completeTask(Long id){
+    public Task completeTask(Long id) {
         Task task = taskRepository.findById(id).orElse(null);
 
-        if (task != null){
+        if (task != null) {
             task.setComplete(true);
             return taskRepository.save(task);
         }
@@ -47,7 +47,7 @@ public class TaskService {
         return null;
     }
 
-    public boolean deleteTask(Long id){
+    public boolean deleteTask(Long id) {
         if (!taskRepository.existsById(id)) return false;
 
         taskRepository.deleteById(id);
