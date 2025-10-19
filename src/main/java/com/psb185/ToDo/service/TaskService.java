@@ -17,34 +17,32 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task createTask(String title) {
+    public void createTask(String title, String details) {
         Task task = new Task();
         task.setTitle(title);
+        task.setDetails(details);
 
-        return taskRepository.save(task);
+        taskRepository.save(task);
     }
 
-    public Task updateTitle(Long id, String title) {
+    public void updateTitle(Long id, String title, String details) {
 
         Task task = taskRepository.findById(id).orElse(null);
 
         if (task != null) {
             task.setTitle(title);
-            return taskRepository.save(task);
+            task.setDetails(details);
+            taskRepository.save(task);
         }
-
-        return null;
     }
 
-    public Task completeTask(Long id) {
+    public void completeTask(Long id) {
         Task task = taskRepository.findById(id).orElse(null);
 
         if (task != null) {
-            task.setComplete(true);
-            return taskRepository.save(task);
+            task.setCompleted(true);
+            taskRepository.save(task);
         }
-
-        return null;
     }
 
     public boolean deleteTask(Long id) {
@@ -52,5 +50,10 @@ public class TaskService {
 
         taskRepository.deleteById(id);
         return true;
+    }
+
+    public List<Task> searchTasks(String title){
+
+        return taskRepository.findByTitleContainingIgnoreCase(title);
     }
 }
