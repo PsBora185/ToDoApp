@@ -11,14 +11,18 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tasks")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     private String title;
 
-    private boolean complete = false;
+    @Column(length = 50)
+    private String details;
+
+    private boolean completed = false;
 }
